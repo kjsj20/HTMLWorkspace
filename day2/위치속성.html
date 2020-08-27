@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>위치 속성</title>
+<style>
+/*전자문서는 일반 문서가 아니므로, 한글이나 워드와 같이 컨텐츠의 위치를
+   자유롭게 지정할 수 없다. 따라서 위치를 원하는 곳으로 지정하려면. CSS의
+   position 속성을 이용해야 한다
+   만일 개발자가 아무런 속성을 지정하지 않을경우 모든 태그요소들은 기본적으로
+   position값이 relative 이다!!
+   절대위치는 다른 태그요소와 공존할 수 있다. 즉 다른 태그에 의해 미려나지 않는다.
+*/
+#m1{
+	position:absolute; /* 절대위치 : 자신의 부모 태그를 기준으로 한 절대위치. */
+	left: 500px;
+	top: 200px;
+	border: 2px solid blue;
+}
+#m2{
+	position:absolute; /* 절대위치 : 자신의 부모 태그를 기준으로 한 절대위치. */
+	left: 350px;
+	top: 100px;
+	border: 2px solid red;
+}
+</style>
+</head>
+<body>
+	<img id = "m1" src="../images/megaman.png" width = "150px"/>
+	<img id = "m2" src="../images/megaman.png" width = "100px"/>
+	
+</body>
+</html>

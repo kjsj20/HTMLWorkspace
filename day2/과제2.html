@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>과제2</title>
+<style>
+	#wrap{
+		width: 600px;
+		height: 500px;
+		border : 2px solid;
+		margin : auto;
+	}
+	#wrap2{
+		overflow: hidden;
+	}
+	#wrap3{
+		overflow: hidden;
+	}
+	#wrap4{
+		overflow: hidden;
+	}
+	#id1{
+		background-color: green;	
+		width: 98px;
+		height: 100%;
+		border-right : 2px solid;
+		float : left;
+	}
+	#id2{
+		background-color: yellow;
+		width: 500px;
+		height: 98px;
+		border-bottom : 2px solid;
+	}
+	#id3{
+		background-color: skyblue;
+		width: 398px;
+		height: 298px;
+		border-right: 2px solid;
+		border-bottom : 2px solid;
+		float: left;
+	}
+	#id4{
+		background-color: blue;
+		width: 100px;
+		height: 148px;
+		border-bottom : 2px solid;
+		float: left;
+	}
+	#id5{
+		background-color: red;
+		width: 500px;
+		height: 100px;
+	}
+	#id6{
+		background-color: tomato;
+		width: 100px;
+		height: 148px;
+		border-bottom : 2px solid;
+		float: left;
+	}
+</style>
+</head>
+<body>
+	<div id="wrap">
+		<div id="id1">녹색</div>
+		<div id = "wrap2">
+			<div id="id2">노랑</div>
+			<div id="wrap3">
+			<div id="id3">하늘</div>
+				<div id="wrap4">
+					<div id="id4">파랑</div>
+					<div id="id6">토마토</div>
+				</div>
+			</div>
+			<div id="id5">빨강</div>
+		</div>
+	</div>
+</body>
+</html>

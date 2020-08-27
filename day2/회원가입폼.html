@@ -3,13 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입 양식</title>
+<!-- 
+   스타일시트를 적용하는 방법은 2가지가 있음 
+   1.인라인 방식 : 해당 태그에 직접 명시하는 방식 
+   					 적용대상이 많을 경우 효율성이 떨어짐. (얘가 1순위임)
+   2.임베디드 방식 : style 태그에 일괄적용하는 방식
+					   - 문법형식 어떤태그를 대상으로 어떠한 처리를 할지를 표현하면 된다.
+					   예) td {font-size:9pt}
+ --> 
+
+<style>
+
+/*아래와 같은 문법형식에서 대상을 가리켜, 선택자라 한다.*/
+	BODY{
+		background: black;
+	}
+	table{
+		border:20px dotted red;
+	}
+
+	td {
+		font-size:9pt;
+		background: yellow;
+	}
+
+	input{
+		background: dodgerblue;
+		color: white;/*그냥 color는 글씨색을 의미*/
+	}
+
+	select{
+		background: green;
+		color: white;
+	}
+	
+	button{
+		background: black;
+		color : white;
+	}
+
+	/*선택자를 아이디로 사용할 경우 #을 붙인다*/
+	#t_name{
+		background: pink;
+	}
+
+</style>
+
 </head>
 <body>
 
-<TABLE BORDER = "2PX" WIDTH = "600px">
+<TABLE BORDER = "2PX" WIDTH = "600px" align = "center">
 
 	<TR>
-		<TD colspan = "2" align = "center">회원가입</TD>
+		<TD colspan = "2" align = "center" style = "font-size : 30px;">
+			회원가입
+		</TD>
 	</TR>
 
 	<TR>
@@ -27,7 +75,7 @@
 	<TR>
 		<TD>NAME</TD>
 		<td>
-			<input type = "text" placeholder = "이름을 입력하세요"/>
+			<input type = "text" placeholder = "이름을 입력하세요" id = "t_name"/>
 		</td>
 	</TR>
 	<TR>
