@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 양식</title>
+</head>
+<body>
+
+<TABLE BORDER = "2PX" WIDTH = "600px">
+
+	<TR>
+		<TD colspan = "2" align = "center">회원가입</TD>
+	</TR>
+
+	<TR>
+		<TD>ID</TD>
+		<td>
+			<input type = "text" placeholder = "id를 입력하세요"/>
+		</td>
+	</TR>
+	<TR>
+		<TD>PASSWORD</TD>
+		<td>
+			<input type = "password" placeholder = "패스워드를 입력하세요"/>
+		</td>
+	</TR>
+	<TR>
+		<TD>NAME</TD>
+		<td>
+			<input type = "text" placeholder = "이름을 입력하세요"/>
+		</td>
+	</TR>
+	<TR>
+		<TD>연락처</TD>
+		<td>
+			<select>
+				<option>010</option>
+				<option>011</option>
+				<option>012</option>
+				<option>013</option>
+				<option>014</option>
+				<option>015</option>
+				<option>016</option>
+				<option>017</option>
+				<option>018</option>
+				<option>019</option>
+			</select> 
+			- <input type = "text" placeholder = "앞자리" size = "2"/> 
+			- <input type = "text" placeholder = "뒷자리" size = "2" />
+		</td>
+	</TR>
+	<TR>
+		<TD>취미</TD>
+		<td>
+			<input type = "checkbox">여행
+			<input type = "checkbox">독서
+			<input type = "checkbox">운동
+			<input type = "checkbox">IT
+		</td>
+	</TR>
+	<TR>
+		<TD>E-mail</TD>
+		<td>
+			<input type = "text" placeholder = "메일 아이디" size = "10" />@
+			<select>
+				<option>네이버</option>
+				<option>구글</option>
+				<option>다음</option>
+			</select>
+		</td>
+	</TR>
+    <TR>
+		<TD>메일수신</TD>
+		<td>
+			<input type = "radio" name = "receive"/>예
+			<input type = "radio" name = "receive"/>아니오
+		</td>
+	</TR>
+	<tr>
+		<td>우편번호</td>
+		<td>
+			<input type = "text" placeholder = "우편번호" size = "5" readonly/>
+			<button>우편번호 검색</button>
+		</td>
+	</tr>
+	<tr>
+		<td colspan = "2" align = "center">
+			<button>가입하기</button>
+			<button>가입취소</button>
+		</td>
+	</tr>
+
+</TABLE>
+
+</body>
+</html>
