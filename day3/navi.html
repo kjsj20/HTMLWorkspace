@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>메뉴</title>
+</head>
+<body>
+<style>
+	a{
+		text-decoration:none; /*링크의 밑줄 제거*/
+		display:block; /*태그의 속성을 block형으로 전환*/
+		background: #dddddd;
+	}
+	div{
+		width: 200px;
+	}
+	/*공통적으로 사용할 스타일의 경우엔 class라는 단위로 정의하여 재사용할 수 있다*/
+	.titleStyle{
+		background-color: red;
+	}
+</style>
+메뉴 나올곳
+<!-- 
+	링크 태그의 옵션에는 대상 프레임에 대한 타겟이 지원됨 
+	_self : 디폴트 (즉 아무것도 지정하지 않으면 얘가 기본으로 적용됨)
+	_parent : 새창으로 띄운다
+	개발자가 원하는 프레임의 이름을 지정할 수도 있다.
+-->
+
+<!--
+	메뉴를 담고 있을 용도의box
+-->
+<div>
+	<a href="" class = "titleStyle">1일차</a>
+	<a href="">2일차</a>
+	<a href="">3일차</a>
+	<a href="">4일차</a>
+</div>
+<div>
+	<a href="" class = "titleStyle">5일차</a>
+	<a href="">6일차</a>
+	<a href="">7일차</a>
+	<a href="">8일차</a>
+</div>
+<div>
+	<a href="" class = "titleStyle">9일차</a>
+	<a href="">10일차</a>
+	<a href="">11일차</a>
+	<a href="">12일차</a>
+</div>
+<!--<a href="https://www.coupang.com" target = "_parent">네이버가기</a>-->
+</body>
+</html>

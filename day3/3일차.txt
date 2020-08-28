@@ -1,0 +1,10 @@
+모든 Tag는 block or inline 중 하나의 특성을 갖는다. 
+block : 같은 행에 그 어떤 태그도 공존할 수 없는 특성
+	너비, 높이를 가질 수 있다. 
+inline : 긑은 행에 다른태그와 공존이 가능함.
+	너비, 높이를 가질 수 없다. 
+
+■ float 사용이유
+	block 형 태그를 공존하게 만들기 위해, 띄우는 속성 
+
+https://www.w3schools.com/ html/css 참고 사이트

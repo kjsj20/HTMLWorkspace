@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>애니메이션</title>
+<style>
+	#ball{
+		width: 80px;
+		height: 50px;
+		/*background: red;	*/
+		animation-name: aniBg; /*이 CSS 가 사용하게될 애니메이션 프레임 이름 */
+		animation-duration:0.5s;
+		animation-iteration-count:8; /*반복 횟수*/
+		animation-direction:alternate;/*반복방식을 번갈아가면서 하도록*/
+		position:absolute; /*부모 요소를 기준으로 나의 위치를 결정하는 방법 : 여기서 부모는 body*/
+		left : 0px;
+		top: 498px;
+		border-radius:75px;
+	}
+	#box{
+		/*background: red;	*/
+		animation-name: aniBg2; /*이 CSS 가 사용하게될 애니메이션 프레임 이름 */
+		animation-duration:1.8s;
+		animation-iteration-count:2; /*반복 횟수*/
+		animation-direction:alternate;/*반복방식을 번갈아가면서 하도록*/
+		position:absolute; /*부모 요소를 기준으로 나의 위치를 결정하는 방법 : 여기서 부모는 body*/
+		left : 0px;
+		border-radius:75px;
+	}
+	#shadow{
+		animation-name: anisha; /*이 CSS 가 사용하게될 애니메이션 프레임 이름 */
+		animation-duration:0.5s;
+		animation-iteration-count:8; /*반복 횟수*/
+		animation-direction:alternate;/*반복방식을 번갈아가면서 하도록*/
+		position:absolute; /*부모 요소를 기준으로 나의 위치를 결정하는 방법 : 여기서 부모는 body*/
+		width: 90px;
+		height: 20px;
+		left : -8px;
+		top: 550px;
+	}
+	#shamov{
+		animation-name: anisha2; /*이 CSS 가 사용하게될 애니메이션 프레임 이름 */
+		animation-duration:1.8s;
+		animation-iteration-count:2; /*반복 횟수*/
+		animation-direction:alternate;/*반복방식을 번갈아가면서 하도록*/
+		position:absolute; /*부모 요소를 기준으로 나의 위치를 결정하는 방법 : 여기서 부모는 body*/
+		width: 90px;
+		height: 20px;
+		left : 0px;
+	}
+/*애니메이션 프레임 정의*/
+@keyframes aniBg{
+	from{
+		/*background:red;*/
+	}
+
+	to{
+		/*background: yellow;*/
+		/*left:110px;*/
+		top:200px;
+	}
+}
+
+@keyframes aniBg2{
+	from{
+		/*background:red;*/
+	}
+
+	to{
+		left : 800px;
+		/*background: yellow;*/
+	}
+}
+
+@keyframes anisha{
+	from{
+		/*background:red;*/
+	}
+
+	to{
+		/*background: yellow;*/
+		left:18px;
+		/*top:500px;*/
+		width : 40px;
+		height: 15px;
+	}
+}
+
+@keyframes anisha2{
+	from{
+		/*background:red;*/
+	}
+
+	to{
+		/*background: yellow;*/
+		left:800px;
+		/*top:500px;*/
+		width : 50px;
+		height: 15px;
+	}
+}
+</style>
+</head>
+<body>
+	<div id="box">
+		<image id = "ball" src = "..\images\ball.png">
+	</div>
+	<div>
+	<div id="shamov">
+		<image src = "..\images\shadow.jpg" id = "shadow"/>
+	</div>
+	</div>
+</body>
+</html>
