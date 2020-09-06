@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입폼 연습</title>
+    <style>
+        table{
+            border-radius : 5px;
+            
+        }
+        td{
+            border-radius : 3px;
+        }
+    </style>
+</head>
+<body>
+    <table border ="2px" width = "30%" align = "center">
+        <tr>
+            <td colspan = "2" align ="center" style = "font-size : 30px;">
+                회원가입
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ID
+            </td>
+            <td>
+                <input type = "text" placeholder = "id를 입력하세요"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                PASSWORD
+            </td>
+            <td>
+                <input type = "password" placeholder = "패스워드를 입력하세요"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                NAME
+            </td>
+            <td>
+                <input type = "text" placeholder = "이름을 입력하세요"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                연락처
+            </td>
+            <td>
+                <select>
+                    <option>010</option>
+                    <option>011</option>
+                    <option>012</option>
+                    <option>013</option>
+                    <option>014</option>
+                    <option>015</option>
+                    <option>016</option>
+                    <option>017</option>
+                    <option>018</option>
+                    <option>019</option>
+                </select>
+                -
+                <input type = "text" placeholder="앞자리" size = "2"/>
+                -
+                <input type = "text" placeholder="뒷자리" size = "2"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                취미
+            </td>
+            <td>
+                <input type = "checkbox"/>여행
+                <input type = "checkbox"/>독서
+                <input type = "checkbox"/>운동
+                <input type = "checkbox"/>IT
+            </td>
+        </tr>
+        <tr>
+            <td>
+                E-mail
+            </td>
+            <td>
+                <input type="text" placeholder="메일 아이디" size = "5" />
+                @
+                <select>
+                    <option value="">naver.com</option>
+                    <option value="">daum.net</option>
+                    <option value="">nate.net</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                메일수신
+            </td>
+            <td>
+                 <input type = "radio">예
+                 <input type = "radio">아니오
+            </td>
+        </tr>
+        <tr>
+            <td>
+                우편번호
+            </td>
+            <td>
+                <input type="text" placeholder="우편번호" size="4">
+                <button>우편번호 검색</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan = "2" align = "center">
+                <button>
+                    가입하기
+                </button>
+                <button>
+                    가입취소
+                </button>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
