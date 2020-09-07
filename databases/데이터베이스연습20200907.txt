@@ -1,0 +1,177 @@
+---------------------------------
+oracle 실습
+
+show user;
+
+conn sys/change_on_install
+
+conn sys/ as sysdba
+
+
+사용자 패스워드 변경 sys로 들어가야함. 
+alter user system
+indentified by 1234;
+
+spool 'D:\HTMLWorkspace\databases\4일차.txt'
+
+사용자 변경
+connect system/1234;
+
+테이블 스페이스 생성
+create tablespace space0907
+  2  datafile 'D:\app\JS\oradata\orcl\test.dbf'
+  3  size 2m;
+
+유저 생성
+create user user0907
+  2  identified by 1234
+  3  default tablespace space0907
+  4  quota unlimited on space0907;
+
+테이블 스페이스 변경 DDL - alter, drop 
+alter user user0907
+default tablespace space0907
+quota unlimited on space0907;
+
+아래의 조건으로 유저에게 권한을 부여하시오 (DCL)
+접속권한
+테이블 생성 권한
+grant create session , create table to user0907;
+
+
+테이블 생성
+create table member
+  2  (
+  3  name varchar(20),
+  4  age number,
+  5  birth date
+  6  );
+
+dml(조작어 넣고 insert, 수정 update, 삭제 delete)
+member 테이블에 두사람의 정보를 아래의 값으로 넣으시오
+
+이름: 노홍철 , 나이30, 새녕월일 1989-09-01
+이름: 박나래 , 나이27, 새녕월일 1986-07-15
+
+insert into member values('노홍철', 30, '1989-09-01');
+insert into member values('박나래', 27, '1986-07-15');
+
+트랜잭션 확정이어야만, 데이터가 디스크에 기록됨 
+dml 작업을 확정짓는 것임
+commit;
+
+컬럼 제거 하는법
+alter table member 
+drop column age; 
+
+-------------------------------
+mysql(maria db) 실습
+
+접속 
+cmd -> cd C:\Program Files\MariaDB 10.5\bin -> mysql -u root -p 1234 
+
+데이터베이스 생성 
+create database mydb; 
+
+유저생성 
+create user 'dev0907'@'localhost' identified by '1234'; 
+
+권한 생성 
+grant all privileges on mydb.* to 'dev0907'@'localhost';
+
+갱신
+flush privileges;
+
+db사용 
+use db명;
+
+테이블 생성 
+create table member(
+    name varchar(20),
+    age int,
+    birth date)default character set utf8;
+
+한글 입력 에러 
+set character set euckr; 이걸로 해결 
+한글깨짐 테이블 변경
+ALTER DATABASE 테이블이름 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+문자셋확인
+SELECT default_character_set_name FROM information_schema.SCHEMATA WHERE schema_name = "테이블 이름";
+
+
+insert into member(name,age,birth) values('노홍철',30,'1989-09-01');
+insert into member(name,age,birth) values('박나래',27,'1986-07-15');
+select * from member;
+select * from member where name='박나래';
+select name, birth from member
+where birth='1989-09-01';
+
+update  member set name='홍철' where name='노홍철';
+delete from member where name='박나래';
+
+
+
+
+===========================================
+
+오라클 실습 
+
+create table dept(
+deptno number 
+,dname varchar2(14)
+,loc varchar2(13)
+,primary key(deptno)
+);
+
+create table emp(
+empno number 
+,ename varchar2(10)     
+,job varchar2(9)         
+,mgr number
+,hiredate date
+,sal number
+,comm number
+,deptno number
+,primary key(empno)
+);
+
+insert into dept(deptno,dname,loc) values(10,'ACCOUNTING','NEW YORK');
+insert into dept(deptno,dname,loc) values(20,'RESEARCH','DALLAS');
+insert into dept(deptno,dname,loc) values(30,'SALES','CHICAGO');
+insert into dept(deptno,dname,loc) values(40,'OPERATIONS','BOSTON'); 
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7369,'SMITH','CLERK',7902,'80/12/17',800,20);
+insert into emp(empno,ename,job,mgr,hiredate,sal,comm,deptno) values(7499,'ALLEN','SALESMAN',7698,'81/02/20',1600,300,30);
+insert into emp(empno,ename,job,mgr,hiredate,sal,comm,deptno) values(7521,'WARD','SALESMAN',7698,'81/02/22',1250,500,30);
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7566,'JONES','MANAGER',7839,'81/04/02',2975,20);
+insert into emp(empno,ename,job,mgr,hiredate,sal,comm,deptno) values(7654,'MARTIN','SALESMAN',7698,'81/09/28',1250,1400,30);
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7698,'BLAKE','MANAGER',7839,'81/05/01',2850,30);
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7782,'CLARK','MANAGER',7839,'81/06/09',2450,10);
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7788,'SCOTT','ANALYST',7566,'87/04/19',3000,20);
+insert into emp(empno,ename,job,hiredate,sal,deptno) values(7839,'KING','PRESIDENT','81/11/17',5000,10);
+insert into emp(empno,ename,job,mgr,hiredate,sal,comm,deptno) values(7844,'TURNER','SALESMAN',7698,'81/09/08',1500,0,30);
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7876,'ADAMS','CLERK',7788,'87/05/23',1100,20);
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7900,'JAMES','CLERK',7698,'81/12/03',950,30);
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7902,'FORD','ANALYST',7566,'81/12/03',3000,20);
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7934,'MILLER','CLERK',7782,'82/01/23',1300,10); 
+
+select * from dba_users;
+
+
+--현재 계정이 어떤 테이블을 가지고 있는지 조회하기 
+--시스템 정보를 가져올 때 사용하는 테이블을 가리켜 딕셔너리라 한다 
+--노하우 접두어의 특징 관리자
+--관리자로 로그인 하면 dba_ 시작하는게 많다 
+--일반 계정으로 로그인 하면 user_ 시작 하는게 많다
+show user0907 
+--현재 계정은 일반계정이므로, 이 계정이 사용할수 있는 딕셔너리는 
+--user_시작하는 테이블일 것이다. 
+--select table_name from user_tables;
+
+--테이블 조회시 깨질때 하는방법 
+--SQLplus 툴명령어 중 화면에 보여줄 텍스트의 버퍼크기 지정 
+--set line 200
+--한페이지당 보여질 레코드 수 
+--set pagesize 20
+
+======================================================
