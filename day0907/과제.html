@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0907과제</title>
+    <style>
+        #box1{
+            width: 300px;
+            height: 200px;
+            background: url(https://st.depositphotos.com/1898481/3892/i/450/depositphotos_38925597-stock-photo-silhouette.jpg);
+            background-size: 300px, 200px;
+            background-repeat: no-repeat;
+            display: inline-block;
+            /* opacity : 0.1; */
+            /* animation : opacity1 3s linear infinite; */
+        }
+        #box2{
+            width: 300px;
+            height: 200px;
+            background: url(https://st.depositphotos.com/1898481/3892/i/450/depositphotos_38925597-stock-photo-silhouette.jpg);
+            background-size: 300px, 200px;
+            background-repeat: no-repeat;
+            transform: scalex(-1);
+            display: inline-block;
+        }
+        #box1:hover{
+            animation-name : opacity1;
+            animation-duration : 1s;
+            animation-fill-mode : forwards; 
+            /* animation: opacity1 1s linear forwards; */
+        }
+        #box2:hover{
+            animation-name : opacity1;
+            animation-duration : 1s;
+            animation-fill-mode : forwards; 
+            /* animation: opacity1 1s linear forwards; */
+        }
+
+        /* #mask1{
+            background: gray;
+            width: 300px;
+            height: 200px;
+        }
+        #mask2{
+            background: yellow;
+            width: 300px;
+            height: 200px;
+        } */
+
+        @keyframes opacity1{
+            from{
+            }
+            to{
+                opacity : 0.3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="box1">
+        <div id="mask1"></div>
+    </div>
+    <div id="box2">
+        <div id="mask2"></div>
+    </div>
+</body>
+</html>
