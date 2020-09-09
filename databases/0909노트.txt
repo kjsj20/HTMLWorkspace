@@ -1,0 +1,160 @@
+SQL> --group by 를 배움
+SQL> --group by 란? 말그대로 레코드를 그룹으로 묶는 쿼리
+SQL> --묶기 때문에 집계함수와 관련성이 깊다 (거의 같이 쓴다)
+SQL> --JOB의 이름 및 그 Job 을 맡은 사원수를 출력
+SQL> select job, count(job) from emp group by job;
+
+JOB                COUNT(JOB)                                                                                                                                                                           
+------------------ ----------                                                                                                                                                                           
+CLERK                       4                                                                                                                                                                           
+SALESMAN                    4                                                                                                                                                                           
+PRESIDENT                   1                                                                                                                                                                           
+MANAGER                     3                                                                                                                                                                           
+ANALYST                     2                                                                                                                                                                           
+
+SQL> select count(job) from emp;
+
+COUNT(JOB)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        14                                                                                                                                                                                              
+
+SQL> select count(sal) from emp;
+
+COUNT(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        14                                                                                                                                                                                              
+
+SQL> desc emp;
+ 이름                                                                                                              널?      유형
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMPNO                                                                                                             NOT NULL NUMBER
+ ENAME                                                                                                                      VARCHAR2(10)
+ JOB                                                                                                                        VARCHAR2(9)
+ MGR                                                                                                                        NUMBER
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER
+ COMM                                                                                                                       NUMBER
+ DEPTNO                                                                                                                     NUMBER
+
+SQL> select deptno from emp;
+
+    DEPTNO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        10                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        10                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        10                                                                                                                                                                                              
+
+14 개의 행이 선택되었습니다.
+
+SQL> select sum(sal), avg(sal) from emp group by deptno;
+
+  SUM(SAL)   AVG(SAL)                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+      9400 1566.66667                                                                                                                                                                                   
+     10875       2175                                                                                                                                                                                   
+      8750 2916.66667                                                                                                                                                                                   
+
+SQL> select sum(sal) as 급여의합, avg(sal) as 급여평균 from emp group by deptno;
+
+  급여의합   급여평균                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+      9400 1566.66667                                                                                                                                                                                   
+     10875       2175                                                                                                                                                                                   
+      8750 2916.66667                                                                                                                                                                                   
+
+SQL> select sum(sal), job from emp group by job;
+
+  SUM(SAL) JOB                                                                                                                                                                                          
+---------- ------------------                                                                                                                                                                           
+      4150 CLERK                                                                                                                                                                                        
+      5600 SALESMAN                                                                                                                                                                                     
+      5000 PRESIDENT                                                                                                                                                                                    
+      8275 MANAGER                                                                                                                                                                                      
+      6000 ANALYST                                                                                                                                                                                      
+
+SQL> select avg(sal), deptno from emp group by deptno;
+
+  AVG(SAL)     DEPTNO                                                                                                                                                                                   
+---------- ----------                                                                                                                                                                                   
+1566.66667         30                                                                                                                                                                                   
+      2175         20                                                                                                                                                                                   
+2916.66667         10                                                                                                                                                                                   
+
+SQL> select sum(sal) from emp group by (select deptno from emp where empno = (select mgr from emp where ename = 'Adams'));
+select sum(sal) from emp group by (select deptno from emp where empno = (select mgr from emp where ename = 'Adams'))
+                                   *
+1행에 오류:
+ORA-22818: 하위 질의식이 여기에 허용되지 않습니다. 
+
+
+SQL> select sum(sal) from emp group by (select deptno from emp where empno = (select mgr from emp where ename = 'Adams'));
+select sum(sal) from emp group by (select deptno from emp where empno = (select mgr from emp where ename = 'Adams'))
+                                   *
+1행에 오류:
+ORA-22818: 하위 질의식이 여기에 허용되지 않습니다. 
+
+
+SQL> select sum(sal) from emp where deptno = (select deptno from emp where empno = (select mgr from emp where ename = 'Adams'));
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+                                                                                                                                                                                                        
+
+SQL> select sum(sal) from emp where deptno = (select deptno from emp where empno = (select mgr from emp where ename = 'Adams'));
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+                                                                                                                                                                                                        
+
+SQL> select sum(sal) from emp where deptno = (select deptno from emp where empno = (select mgr from emp where ename = 'ADAlMS'));
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+                                                                                                                                                                                                        
+
+SQL> selet mgr from emp where ename = 'ADAMS';
+SP2-0734: "selet mgr ..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> selet mgr from emp where ename = 'ADAMS';
+SP2-0734: "selet mgr ..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> select mgr from emp where ename = 'ADAMS';
+
+       MGR                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      7788                                                                                                                                                                                              
+
+SQL> select sum(sal) from emp where deptno = (select deptno from emp where empno = (select mgr from emp where ename = 'ADAMS'));
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     10875                                                                                                                                                                                              
+
+SQL> select sum(sal) from where deptno = 20;
+select sum(sal) from where deptno = 20
+                     *
+1행에 오류:
+ORA-00903: 테이블명이 부적합합니다 
+
+
+SQL> select sum(sal) from emp where deptno = 20;
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     10875                                                                                                                                                                                              
+
+SQL> spool off
+
+오라클의 SQLplus 툴에는 대량의 데이터를 덤프(한꺼번에)로 
+읽어들일 수 있는 기능이 숨어있다. 
+이 기능을 이용하려면, 오라클에서만 사용되는 특별한 명령어 파일을
+사용해야 한다. (컨트롤 파일)
