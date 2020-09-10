@@ -1,0 +1,482 @@
+SQL> --학생 정보를 넣어보자
+SQL> --우리가 보유한 테이블이 무엇이 있는지 기억할 수 있나?
+SQL> --시스템 정보에서 지금까지 만들었던 테이블 목록을 조회
+SQL> --이미 시스템이 지원하는 객체들을 가리켜 딕셔너리라 한다
+SQL> --유저가 관리자인 경우 : dba_시작, 유저가 일반계정 user_ 시작
+SQL> select table_name from user_tables;
+
+TABLE_NAME                                                                      
+------------------------------------------------------------                    
+ANIMAL                                                                          
+EMP                                                                             
+DEPT                                                                            
+
+SQL> set line 200
+SQL> set pagesize 20
+SQL> create table emp2 as
+  2  select * from emp;
+
+테이블이 생성되었습니다.
+
+SQL> select * from emp2;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 개의 행이 선택되었습니다.
+
+SQL> --테이블 복사 한것임
+SQL> --emp2는 복사본 이므로. 손상되어도 됨
+SQL> --DML(조작어:insert넣고 , delete삭제 , update수정 ) 학습
+SQL> select * from emp2 where deptno = '30';
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+
+6 개의 행이 선택되었습니다.
+
+SQL> --30번 부서의 사원들의 커미션을 100으로 모두 변경
+SQL> --조작이므로 update 사용
+SQL> update emp2 set comm = 100 where deptno = 30;
+
+6 행이 갱신되었습니다.
+
+SQL> select * from emp2 where deptno = '30';
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        100         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        100         30                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250        100         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850        100         30                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500        100         30                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950        100         30                                                                                                 
+
+6 개의 행이 선택되었습니다.
+
+SQL> update emp2 set job = '영업맨' where job = 'SALESMAN' and deptno = 30;
+
+4 행이 갱신되었습니다.
+
+SQL> select * from emp2 where deptno = '30';
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7499 ALLEN                영업맨                   7698 81/02/20       1600        100         30                                                                                                 
+      7521 WARD                 영업맨                   7698 81/02/22       1250        100         30                                                                                                 
+      7654 MARTIN               영업맨                   7698 81/09/28       1250        100         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850        100         30                                                                                                 
+      7844 TURNER               영업맨                   7698 81/09/08       1500        100         30                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950        100         30                                                                                                 
+
+6 개의 행이 선택되었습니다.
+
+SQL> --EMP2에서 급여가 가장 높은 사원의 이름을 왕으로 바꾸세요
+SQL> update emp2 set ename = '왕' where sal = (select max(sal) from emp2);
+
+1 행이 갱신되었습니다.
+
+SQL> select * from emp2 where ename = '왕';
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7839 왕                   PRESIDENT                     81/11/17       5000                    10                                                                                                 
+
+SQL> --조작어 중 삭제를 학습하자
+SQL> --급여가 800인 사원을 삭제
+SQL> delete from emp2 where sal = 800;
+
+1 행이 삭제되었습니다.
+
+SQL> select * from emp2;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7499 ALLEN                영업맨                   7698 81/02/20       1600        100         30                                                                                                 
+      7521 WARD                 영업맨                   7698 81/02/22       1250        100         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               영업맨                   7698 81/09/28       1250        100         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850        100         30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 왕                   PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               영업맨                   7698 81/09/08       1500        100         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950        100         30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+13 개의 행이 선택되었습니다.
+
+SQL> --커미션 계약을 한 사원들을 삭제하시오
+SQL> delete from emp2 where comm is not null;
+
+6 행이 삭제되었습니다.
+
+SQL> select * from emp2;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 왕                   PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+7 개의 행이 선택되었습니다.
+
+SQL> delete from emp2;
+
+7 행이 삭제되었습니다.
+
+SQL> select * from emp2;
+
+선택된 레코드가 없습니다.
+
+SQL> create table emp3 as
+  2  select * from emp;
+
+테이블이 생성되었습니다.
+
+SQL> select * from emp3
+  2  ;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 개의 행이 선택되었습니다.
+
+SQL> --부서번호가 10번이거나 20번인 사원들의 급여의 합을 구하시오
+SQL> select sum(sal) from emp3 deptno = '10' or deptno = '20';
+select sum(sal) from emp3 deptno = '10' or deptno = '20'
+                                 *
+1행에 오류:
+ORA-00933: SQL 명령어가 올바르게 종료되지 않았습니다 
+
+
+SQL> select sum(sal) from emp3 where deptno = '10' or deptno = '20';
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+     19625                                                                                                                                                                                              
+
+SQL> --관리자가 (상사가 없음) 없는 사원과 같은 부서의 사원들의 급여의 합
+SQL> select sum(sal) from emp3 where deptno = (select deptno from emp3 where mgr is null);
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      8750                                                                                                                                                                                              
+
+SQL> select sum(sal) from where deptno = 10
+  2  ;
+select sum(sal) from where deptno = 10
+                     *
+1행에 오류:
+ORA-00903: 테이블명이 부적합합니다 
+
+
+SQL> select sum(sal) from emp3 where deptno = 10;
+
+  SUM(SAL)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      8750                                                                                                                                                                                              
+
+SQL> --DML(조작어) 는 조심스럽다 .. 데이터어 수정 , 삭제
+SQL> --트랜잭션(Transation:거래)
+SQL> --트랜잭션이란 ?
+SQL> --세부업무가 모두 성공해야 전체를 성공으로 간주하는 논리적 업무수행 단위
+SQL> --여기서 말하는 세부업무는 DML(조작)을 의미
+SQL> --DML 업무시 단 하나라도 실패하지 않아야, 전체를 성공으로 간주하는 업무수행 단위
+SQL> --실습을 위한 테이블을 하나 만들자
+SQL> create table emp4
+  2  as
+  3  select * from emp;
+
+테이블이 생성되었습니다.
+
+SQL> select * from emp4;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 개의 행이 선택되었습니다.
+
+SQL> --EMP4를 대상으로 조작한적 있나 ?
+SQL> --트랜잭션이 시작됨
+SQL> --최초의 조작
+SQL> update emp4 set ename = '스미스' where ename = 'smith';
+
+0 행이 갱신되었습니다.
+
+SQL> update emp4 set ename = '스미스' where ename = 'SMITH';
+
+1 행이 갱신되었습니다.
+
+SQL> commit;
+
+커밋이 완료되었습니다.
+
+SQL> select * from emp4;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 스미스               CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 개의 행이 선택되었습니다.
+
+SQL> --ROLLBACK 트랜잭션을 실패로 간주하여 처음부터 조작이 없었던 상태로 돌려놓음
+SQL> --ROLLBACK 명령 이후로 트랜잭션이 또시작됨
+SQL> UPDATE EMP4 SET SAL = '2000' WHERE ENAME = '스미스';
+
+1 행이 갱신되었습니다.
+
+SQL> COMMIT;
+
+커밋이 완료되었습니다.
+
+SQL> SELECT * FROM EMP4;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 스미스               CLERK                    7902 80/12/17       2000                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 개의 행이 선택되었습니다.
+
+SQL> ROLLBACK;
+
+롤백이 완료되었습니다.
+
+SQL> SELECT * FROM EMP4;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 스미스               CLERK                    7902 80/12/17       2000                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 개의 행이 선택되었습니다.
+
+SQL> COMMIT;
+
+커밋이 완료되었습니다.
+
+SQL> --트랜잭션 시작된 이후로 첫 업무
+SQL> DELETE FROM EMP4 WHERE ENAME = '스미스';
+
+1 행이 삭제되었습니다.
+
+SQL> SELECT * FROM EMP4;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+13 개의 행이 선택되었습니다.
+
+SQL> DELETE FROM EMP4 WHERE ENAME = 'ALLEN';
+
+1 행이 삭제되었습니다.
+
+SQL> SELECT * FROM EMP4;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+12 개의 행이 선택되었습니다.
+
+SQL> ROLLBACK;
+
+롤백이 완료되었습니다.
+
+SQL> SELECT * FROM EMP4;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 스미스               CLERK                    7902 80/12/17       2000                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 개의 행이 선택되었습니다.
+
+SQL> --주의할 점
+SQL> UPDATE EMP4 SET ENAME = '왕' WHERE ENAME = 'KING';
+
+1 행이 갱신되었습니다.
+
+SQL> --개발자가 세부업무 DML을 수행한 와중 , 만일 DDL 명령을 내리면
+SQL> --DDL에 의해 기존 트랜잭션이 COMMIT
+SQL> DROP TABLE EMP2;
+
+테이블이 삭제되었습니다.
+
+SQL> SELECT * FROM EMP4;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 스미스               CLERK                    7902 80/12/17       2000                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 왕                   PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 개의 행이 선택되었습니다.
+
+SQL> --따라서 DDL 업무를 보기전에 기존의 트랜잭션은 처리하고 나서 하자!
+SQL> ROLLBACK;
+
+롤백이 완료되었습니다.
+
+SQL> SELECT * FROM EMP4;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 스미스               CLERK                    7902 80/12/17       2000                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 왕                   PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 개의 행이 선택되었습니다.
+
+SQL> --결론: DDL은 자동 COMMIT을 일으킴
+SQL> SPOOL OFF
