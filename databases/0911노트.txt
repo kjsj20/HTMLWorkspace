@@ -1,0 +1,745 @@
+SQL> set line 200
+SQL> set pagesize 20
+SQL> --테이블 복사하기
+SQL> create table memeber
+  2  as
+  3  select ename, sal, hiredate, deptno from emp;
+
+테이블이 생성되었습니다.
+
+SQL> select * from member;
+select * from member
+              *
+1행에 오류:
+ORA-00942: 테이블 또는 뷰가 존재하지 않습니다 
+
+
+SQL> drop table memeber;
+
+테이블이 삭제되었습니다.
+
+SQL> create table member
+  2  as
+  3  select ename, sal, hiredate, deptno from emp;
+
+테이블이 생성되었습니다.
+
+SQL> select * from member;
+
+ENAME                       SAL HIREDATE     DEPTNO                                                                                                                                                     
+-------------------- ---------- -------- ----------                                                                                                                                                     
+SMITH                       800 80/12/17         20                                                                                                                                                     
+ALLEN                      1600 81/02/20         30                                                                                                                                                     
+WARD                       1250 81/02/22         30                                                                                                                                                     
+JONES                      2975 81/04/02         20                                                                                                                                                     
+MARTIN                     1250 81/09/28         30                                                                                                                                                     
+BLAKE                      2850 81/05/01         30                                                                                                                                                     
+CLARK                      2450 81/06/09         10                                                                                                                                                     
+SCOTT                      3000 87/04/19         20                                                                                                                                                     
+KING                       5000 81/11/17         10                                                                                                                                                     
+TURNER                     1500 81/09/08         30                                                                                                                                                     
+ADAMS                      1100 87/05/23         20                                                                                                                                                     
+JAMES                       950 81/12/03         30                                                                                                                                                     
+FORD                       3000 81/12/03         20                                                                                                                                                     
+MILLER                     1300 82/01/23         10                                                                                                                                                     
+
+14 개의 행이 선택되었습니다.
+
+SQL> delete from member where ename = 'BLAKE'
+  2  ;
+
+1 행이 삭제되었습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+ENAME                       SAL HIREDATE     DEPTNO                                                                                                                                                     
+-------------------- ---------- -------- ----------                                                                                                                                                     
+SMITH                       800 80/12/17         20                                                                                                                                                     
+ALLEN                      1600 81/02/20         30                                                                                                                                                     
+WARD                       1250 81/02/22         30                                                                                                                                                     
+JONES                      2975 81/04/02         20                                                                                                                                                     
+MARTIN                     1250 81/09/28         30                                                                                                                                                     
+CLARK                      2450 81/06/09         10                                                                                                                                                     
+SCOTT                      3000 87/04/19         20                                                                                                                                                     
+KING                       5000 81/11/17         10                                                                                                                                                     
+TURNER                     1500 81/09/08         30                                                                                                                                                     
+ADAMS                      1100 87/05/23         20                                                                                                                                                     
+JAMES                       950 81/12/03         30                                                                                                                                                     
+FORD                       3000 81/12/03         20                                                                                                                                                     
+MILLER                     1300 82/01/23         10                                                                                                                                                     
+
+13 개의 행이 선택되었습니다.
+
+SQL> COMMIT;
+
+커밋이 완료되었습니다.
+
+SQL> --기존 트랜잭션은 마무리되고, 새로운 트랜잭션 시작됨.
+SQL> --이름 컬럼의 존재를 없애버리자 (테이블의 구조 변경)
+SQL> --DDL(ALTER)
+SQL> ALTER TABLE MEMBER DROP COLUMN ENAME;
+
+테이블이 변경되었습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+       SAL HIREDATE     DEPTNO                                                                                                                                                                          
+---------- -------- ----------                                                                                                                                                                          
+       800 80/12/17         20                                                                                                                                                                          
+      1600 81/02/20         30                                                                                                                                                                          
+      1250 81/02/22         30                                                                                                                                                                          
+      2975 81/04/02         20                                                                                                                                                                          
+      1250 81/09/28         30                                                                                                                                                                          
+      2450 81/06/09         10                                                                                                                                                                          
+      3000 87/04/19         20                                                                                                                                                                          
+      5000 81/11/17         10                                                                                                                                                                          
+      1500 81/09/08         30                                                                                                                                                                          
+      1100 87/05/23         20                                                                                                                                                                          
+       950 81/12/03         30                                                                                                                                                                          
+      3000 81/12/03         20                                                                                                                                                                          
+      1300 82/01/23         10                                                                                                                                                                          
+
+13 개의 행이 선택되었습니다.
+
+SQL> DELETE FROM MEMBER WHERE SAL = 2450;
+
+1 행이 삭제되었습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+       SAL HIREDATE     DEPTNO                                                                                                                                                                          
+---------- -------- ----------                                                                                                                                                                          
+       800 80/12/17         20                                                                                                                                                                          
+      1600 81/02/20         30                                                                                                                                                                          
+      1250 81/02/22         30                                                                                                                                                                          
+      2975 81/04/02         20                                                                                                                                                                          
+      1250 81/09/28         30                                                                                                                                                                          
+      3000 87/04/19         20                                                                                                                                                                          
+      5000 81/11/17         10                                                                                                                                                                          
+      1500 81/09/08         30                                                                                                                                                                          
+      1100 87/05/23         20                                                                                                                                                                          
+       950 81/12/03         30                                                                                                                                                                          
+      3000 81/12/03         20                                                                                                                                                                          
+      1300 82/01/23         10                                                                                                                                                                          
+
+12 개의 행이 선택되었습니다.
+
+SQL> ALTER TABLE MEMBER DROP SAL;
+ALTER TABLE MEMBER DROP SAL
+                        *
+1행에 오류:
+ORA-00905: 누락된 키워드 
+
+
+SQL> ALTER TABLE MEMBER DROP COLUMN SAL;
+
+테이블이 변경되었습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+HIREDATE     DEPTNO                                                                                                                                                                                     
+-------- ----------                                                                                                                                                                                     
+80/12/17         20                                                                                                                                                                                     
+81/02/20         30                                                                                                                                                                                     
+81/02/22         30                                                                                                                                                                                     
+81/04/02         20                                                                                                                                                                                     
+81/09/28         30                                                                                                                                                                                     
+87/04/19         20                                                                                                                                                                                     
+81/11/17         10                                                                                                                                                                                     
+81/09/08         30                                                                                                                                                                                     
+87/05/23         20                                                                                                                                                                                     
+81/12/03         30                                                                                                                                                                                     
+81/12/03         20                                                                                                                                                                                     
+82/01/23         10                                                                                                                                                                                     
+
+12 개의 행이 선택되었습니다.
+
+SQL> delete from member where hiredate = '81/04/02';
+
+1 행이 삭제되었습니다.
+
+SQL> select * from member;
+
+HIREDATE     DEPTNO                                                                                                                                                                                     
+-------- ----------                                                                                                                                                                                     
+80/12/17         20                                                                                                                                                                                     
+81/02/20         30                                                                                                                                                                                     
+81/02/22         30                                                                                                                                                                                     
+81/09/28         30                                                                                                                                                                                     
+87/04/19         20                                                                                                                                                                                     
+81/11/17         10                                                                                                                                                                                     
+81/09/08         30                                                                                                                                                                                     
+87/05/23         20                                                                                                                                                                                     
+81/12/03         30                                                                                                                                                                                     
+81/12/03         20                                                                                                                                                                                     
+82/01/23         10                                                                                                                                                                                     
+
+11 개의 행이 선택되었습니다.
+
+SQL> alter table member drop column hiredate;
+
+테이블이 변경되었습니다.
+
+SQL> delete from member where deptno = 30 and rownum = 7;
+
+0 행이 삭제되었습니다.
+
+SQL> delete from member where deptno = 30 rownum = 8;
+delete from member where deptno = 30 rownum = 8
+                                     *
+1행에 오류:
+ORA-00933: SQL 명령어가 올바르게 종료되지 않았습니다 
+
+
+SQL> delete from member where deptno = 30 rownum = 8;
+delete from member where deptno = 30 rownum = 8
+                                     *
+1행에 오류:
+ORA-00933: SQL 명령어가 올바르게 종료되지 않았습니다 
+
+
+SQL> select * from member;
+
+    DEPTNO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        10                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        30                                                                                                                                                                                              
+        20                                                                                                                                                                                              
+        10                                                                                                                                                                                              
+
+11 개의 행이 선택되었습니다.
+
+SQL> rollback;
+
+롤백이 완료되었습니다.
+
+SQL> delete from member where deptno = 30 rownum = 8;
+delete from member where deptno = 30 rownum = 8
+                                     *
+1행에 오류:
+ORA-00933: SQL 명령어가 올바르게 종료되지 않았습니다 
+
+
+SQL> delete from member where deptno = 30 and rownum = 8;
+
+0 행이 삭제되었습니다.
+
+SQL> delete from member where deptno = 30 and rownum = 6;
+
+0 행이 삭제되었습니다.
+
+SQL> tq
+SP2-0042: 알 수 없는 명령어 "tq" - 나머지 줄 무시.
+SQL> rollback;
+
+롤백이 완료되었습니다.
+
+SQL> --앞으로 테이블 생성할때, 반드시 무조건 존재시켜야 하는 컬럼이 있다
+SQL> --테이블 정의시 데이터의 결점을 두지 않기 위한 방법 = 즉 무결성
+SQL> --즉 테이블에 올바른 데이터를 받아들이기 위해, 테이블 정의시
+SQL> --개발자는 많은 제약사항을 둘 수 있다... 제한이 많을 수록 데이터는 정제된다
+SQL> --제약조건 (Constraint Condition)
+SQL> --(1) 주민번호와 같이 유일한 데이터만 받아들일 수 있도록 컬럼 정의시 제한하기
+SQL> drop table member;
+
+테이블이 삭제되었습니다.
+
+SQL> --DDL은 ROLLBACK 대상이 아니다 , 즉 DML만 트랜잭션의 대상이 된다.
+SQL> CREATE TABLE MEMBER(
+  2  NAME VARCHAR(20),
+  3  AGE NUMBER);
+
+테이블이 생성되었습니다.
+
+SQL> --레코드를 보고자 함이 아닌, 내가만든 테이블의 구조를 보려면?
+SQL> --테이블을 설명해달라는 명령어 DESCRIBE
+SQL> DESC MEMBER;
+ 이름                                                                                                              널?      유형
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ NAME                                                                                                                       VARCHAR2(20)
+ AGE                                                                                                                        NUMBER
+
+SQL> INSERT INTO MEMBER(NAME, AGE) VALUES('배트맨',36);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+NAME                                            AGE                                                                                                                                                     
+---------------------------------------- ----------                                                                                                                                                     
+배트맨                                           36                                                                                                                                                     
+
+SQL> INSERT INTO MEMBER(NAME, AGE) VALUES('앤트맨',36);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> DELETE FROM MEMBER WHERE NAME = '앤트맨';
+
+1 행이 삭제되었습니다.
+
+SQL> COMMIT;
+
+커밋이 완료되었습니다.
+
+SQL> INSERT INTO MEMBER(NAME, AGE) VALUES('앤트맨',40);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> COMMIT
+  2  ;
+
+커밋이 완료되었습니다.
+
+SQL> INSERT INTO MEMBER(NAME, AGE) VALUES('배트맨',36);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+NAME                                            AGE                                                                                                                                                     
+---------------------------------------- ----------                                                                                                                                                     
+배트맨                                           36                                                                                                                                                     
+앤트맨                                           40                                                                                                                                                     
+배트맨                                           36                                                                                                                                                     
+
+SQL> --과연 첫번째 배트맨을 지울 수 있을까? 정답 : 없다 !!
+SQL> --해결책 ? 테이블생성시 무조건 레코드와 레코드를 구분할 컬럼이 필요.
+SQL> --마치 한국에서의 주민번호의 역할과 같은 컬럼의 존재가 필요.
+SQL> DROP TABLE MEMBER;
+
+테이블이 삭제되었습니다.
+
+SQL> CREATE TABLE MEMBER(
+  2  MEMBER_IDX NUMBER,
+  3  ;
+
+*
+3행에 오류:
+ORA-00904: : 부적합한 식별자 
+
+
+SQL> CREATE TABLE MEMBER(
+  2  MEMBER_IDX NUMBER UNIQUE,
+  3  NAME VARCHAR(20),
+  4  AGE NUMBER);
+
+테이블이 생성되었습니다.
+
+SQL> INSERT INTO MEMBER(MEMBER_IDX, NAME, AGE)
+  2  VALUES(1, '배트맨', 36);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> INSERT INTO MEMBER VALUES(1,'수퍼맨',40);
+INSERT INTO MEMBER VALUES(1,'수퍼맨',40)
+*
+1행에 오류:
+ORA-00001: 무결성 제약 조건(USER0907.SYS_C0011055)에 위배됩니다 
+
+
+SQL> --위에서 중복된 데이터를 넣으면 제약사항에 위배되어 데이터 IKNSERT 불가
+SQL> SELECT * FROM MEMBER;
+
+MEMBER_IDX NAME                                            AGE                                                                                                                                          
+---------- ---------------------------------------- ----------                                                                                                                                          
+         1 배트맨                                           36                                                                                                                                          
+
+SQL> -- 올바르고 결점이 없는 데이터를 받아들이기 위해서는 컬럼 정의시
+SQL> -- 제약조건을 부여할 수 있다.
+SQL> INSERT INTO MEMBER VALUES(2, 'SUPERMAN', 39);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> INSERT INTO MEMBER VALUES(3, 'XMAN', 28);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+MEMBER_IDX NAME                                            AGE                                                                                                                                          
+---------- ---------------------------------------- ----------                                                                                                                                          
+         1 배트맨                                           36                                                                                                                                          
+         2 SUPERMAN                                         39                                                                                                                                          
+         3 XMAN                                             28                                                                                                                                          
+
+SQL> COMMIT;
+
+커밋이 완료되었습니다.
+
+SQL> INSERT INTO MEMBER VALUES(4, '배트맨', 36);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> --UNIQUE는 유일한 데이터에 대해서는 무결성을 보장할 수 있지만,
+SQL> --NULL값을 허용해 버리고 만다.
+SQL> INSERT INTO MEMBER(NAME, AGE) VALUES('배트맨',36);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+MEMBER_IDX NAME                                            AGE                                                                                                                                          
+---------- ---------------------------------------- ----------                                                                                                                                          
+         1 배트맨                                           36                                                                                                                                          
+         2 SUPERMAN                                         39                                                                                                                                          
+         3 XMAN                                             28                                                                                                                                          
+         4 배트맨                                           36                                                                                                                                          
+           배트맨                                           36                                                                                                                                          
+
+SQL> INSERT INTO MEMBER(NAME, AGE) VALUES('배트맨',36);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+MEMBER_IDX NAME                                            AGE                                                                                                                                          
+---------- ---------------------------------------- ----------                                                                                                                                          
+         1 배트맨                                           36                                                                                                                                          
+         2 SUPERMAN                                         39                                                                                                                                          
+         3 XMAN                                             28                                                                                                                                          
+         4 배트맨                                           36                                                                                                                                          
+           배트맨                                           36                                                                                                                                          
+           배트맨                                           36                                                                                                                                          
+
+6 개의 행이 선택되었습니다.
+
+SQL> --우리의 경우 두사람 이상이 MEMBER_IDX 값이 NULL 이므로, 원하는 레코드를 제어할 수 없다
+SQL> DROP TABLE MEMBER;
+
+테이블이 삭제되었습니다.
+
+SQL> --이번에는 UNIQUE와 NULL을 허용하지 않는 NOT NULL 제약조건을 부여해 본다
+SQL> CREATE TABLE MEMBER(
+  2  MEMBER_IDX NUMBER UNIQUE NOT NULL,
+  3  NAME VARCHAR(20),
+  4  AGE NUMBER
+  5  );
+
+테이블이 생성되었습니다.
+
+SQL> DESC MEMBER;
+ 이름                                                                                                              널?      유형
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ MEMBER_IDX                                                                                                        NOT NULL NUMBER
+ NAME                                                                                                                       VARCHAR2(20)
+ AGE                                                                                                                        NUMBER
+
+SQL> INSERT INTO MEMBER(NAME,AGE) VALUES('BATMAN',39);
+INSERT INTO MEMBER(NAME,AGE) VALUES('BATMAN',39)
+*
+1행에 오류:
+ORA-01400: NULL을 ("USER0907"."MEMBER"."MEMBER_IDX") 안에 삽입할 수 없습니다 
+
+
+SQL> -- 결론) 널을 허용하지 않는다 !!
+SQL> -- 현재 까지 배운 제약조건 2개 UNIQUE, NOT NULL
+SQL> -- 테이블의 데이터 구분시 사용되는 컬럼마다 2개의 제약조건을 주는건 너무 불편함
+SQL> -- 따라서 제약조건 중 UNIQUE + NOT NULL 합쳐놓은 제약 조건을 지원해준다 (모든 ~~ DBMS 지원)
+SQL> -- ANSI 표준이다
+SQL> -- PRIMARY KEY 제약조건 (UNIQUE + NOT NULL)
+SQL> DROP TABLE MEMBER;
+
+테이블이 삭제되었습니다.
+
+SQL> CREATE TABLE MEMBER)
+  2  MEMBER_IDX NUMBER PRIMARY KEY,
+  3  NAME VARCHAR(20),
+  4  AGE NUMBER);
+CREATE TABLE MEMBER)
+                   *
+1행에 오류:
+ORA-00922: 누락된 또는 부적합한 옵션 
+
+
+SQL> CREATE TABLE MEMBER(
+  2  MEMBER_IDX NUMBER PRIMARY KEY,
+  3  NAME VARCHAR(20),
+  4  AGE NUMBER);
+
+테이블이 생성되었습니다.
+
+SQL> DESC MEMBERF;
+ERROR:
+ORA-04043: MEMBERF 객체는 존재하지 않습니다. 
+
+
+SQL> DESC MEMBER;
+ 이름                                                                                                              널?      유형
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ MEMBER_IDX                                                                                                        NOT NULL NUMBER
+ NAME                                                                                                                       VARCHAR2(20)
+ AGE                                                                                                                        NUMBER
+
+SQL> --제약조건의 종류
+SQL> --1) UNIQUE
+SQL> --2) NOT NULL
+SQL> --3) PRIMARY KEY ( UNIQUE + NOT NULL)
+SQL> --4) DEFAULT (기본값 적용시 사용)
+SQL> --5) CHECK (값의 범위를 제한)
+SQL> --6) FOREIGN KEY(조인시 사용되는 외래키 제약조건)
+SQL> DROP TABLE MEMBER;
+
+테이블이 삭제되었습니다.
+
+SQL> CREATE TABLE MEMBER(
+  2  MEMBER_IDX NUMBER PRIMARY KEY
+  3  , NAME VARCHAR(20)
+  4  , AGE NUMBER
+  5  , REGDATE DATE DEFAULT SYSDATE --기본값으로 들어있게 처리.
+  6  , POINT NUMBER DEFAULT 500
+  7  );
+
+테이블이 생성되었습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+선택된 레코드가 없습니다.
+
+SQL> DESC MEMBER;
+ 이름                                                                                                              널?      유형
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ MEMBER_IDX                                                                                                        NOT NULL NUMBER
+ NAME                                                                                                                       VARCHAR2(20)
+ AGE                                                                                                                        NUMBER
+ REGDATE                                                                                                                    DATE
+ POINT                                                                                                                      NUMBER
+
+SQL> --REGDATE, POINT 에 해당하는 데이터는 우리가 넣을 필요없고,
+SQL> --시스템에 의해 자동으로 입력된다.
+SQL> INSERT INTO MEMBER(MEMBER_IDX, NAME, AGE) VALUES(1, 'BATMAN', 37);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+MEMBER_IDX NAME                                            AGE REGDATE       POINT                                                                                                                      
+---------- ---------------------------------------- ---------- -------- ----------                                                                                                                      
+         1 BATMAN                                           37 20/09/11        500                                                                                                                      
+
+SQL> --제약 조건과 상관은 없지만, SYSDATE ?
+SQL> SELECT SYSDATE;
+SELECT SYSDATE
+             *
+1행에 오류:
+ORA-00923: FROM 키워드가 필요한 위치에 없습니다. 
+
+
+SQL> SELECT SYSDATE FROM DUAL;
+
+SYSDATE                                                                                                                                                                                                 
+--------                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+
+SQL> SELECT TO_DATE(SYSDATE, 'YYYYMMDD') FROM DUAL;
+SELECT TO_DATE(SYSDATE, 'YYYYMMDD') FROM DUAL
+               *
+1행에 오류:
+ORA-01858: 숫자가 있어야 하는 위치에서 숫자가 아닌 문자가 발견되었습니다. 
+
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YYYYMMDD') FROM DUAL;
+
+TO_CHAR(SYSDATE,                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+20200911                                                                                                                                                                                                
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD') FROM DUAL;
+
+TO_CHAR(SYSDATE,'YYY                                                                                                                                                                                    
+--------------------                                                                                                                                                                                    
+2020/09/11                                                                                                                                                                                              
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD') '날짜' FROM DUAL;
+SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD') '날짜' FROM DUAL
+                                      *
+1행에 오류:
+ORA-00923: FROM 키워드가 필요한 위치에 없습니다. 
+
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD') AS '날짜' FROM DUAL;
+SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD') AS '날짜' FROM DUAL
+                                         *
+1행에 오류:
+ORA-00923: FROM 키워드가 필요한 위치에 없습니다. 
+
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD') 날짜 FROM DUAL;
+
+날짜                                                                                                                                                                                                    
+--------------------                                                                                                                                                                                    
+2020/09/11                                                                                                                                                                                              
+
+SQL> -그냥 컬럼이 하나짜리, 데이터가 한개 들어있는 DUMMY 테이블임
+SP2-0734: "-그냥 컬럼..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> --그냥 컬럼이 하나짜리, 데이터가 한개 들어있는 DUMMY 테이블임
+SQL> --왜 제공해주는가 ?
+SQL> SELECT STDATE FROM EMP;
+SELECT STDATE FROM EMP
+       *
+1행에 오류:
+ORA-00904: "STDATE": 부적합한 식별자 
+
+
+SQL> SELECT SYSDATE FROM EMP;
+
+SYSDATE                                                                                                                                                                                                 
+--------                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+
+14 개의 행이 선택되었습니다.
+
+SQL> SELECT SYSDATE FROM DUAL;
+
+SYSDATE                                                                                                                                                                                                 
+--------                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+
+SQL> --결론 : 날짜를 조회할때는 레코드가 1건만 필요하므로, DUMMY 테이블을 이용하자!
+SQL> SELECT '김재성' FROM DUAL;
+
+'김재성'                                                                                                                                                                                                
+------------------                                                                                                                                                                                      
+김재성                                                                                                                                                                                                  
+
+SQL> SELECT '김재성' FROM EMP;
+
+'김재성'                                                                                                                                                                                                
+------------------                                                                                                                                                                                      
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+김재성                                                                                                                                                                                                  
+
+14 개의 행이 선택되었습니다.
+
+SQL> CREATE TABLE BABO(
+  2  BOO VARCHAR(2));
+
+테이블이 생성되었습니다.
+
+SQL> SELECT 1234 FROM BABO;
+
+선택된 레코드가 없습니다.
+
+SQL> SELECT '1234' FROM BABO;
+
+선택된 레코드가 없습니다.
+
+SQL> COMMIT;
+
+커밋이 완료되었습니다.
+
+SQL> SELECT 12 FROM BABO;
+
+선택된 레코드가 없습니다.
+
+SQL> SELECT SYSDATE FROM BABO;
+
+선택된 레코드가 없습니다.
+
+SQL> INSERT INTO BABO VALUES('X');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> SELECT * FROM BABO;
+
+BOO                                                                                                                                                                                                     
+----                                                                                                                                                                                                    
+X                                                                                                                                                                                                       
+
+SQL> SELECT SYSDATE FROM BABO;
+
+SYSDATE                                                                                                                                                                                                 
+--------                                                                                                                                                                                                
+20/09/11                                                                                                                                                                                                
+
+SQL> --체크 제약조건 (값의 범위에 대한 제한)
+SQL> --MEMBER 테이블에 성별 컬럼을 추가해 보자
+SQL> --기존 이미 생성된 테이블에 대한 변경
+SQL> ALTER TABLE MEMBER
+  2  ADD COLUMN GENDER VARCHAR(4) CHECK(GENDER='남');
+ADD COLUMN GENDER VARCHAR(4) CHECK(GENDER='남')
+    *
+2행에 오류:
+ORA-00904: : 부적합한 식별자 
+
+
+SQL> ALTER TABLE MEMBER
+  2  ADD GENDER VARCHAR(4)
+  3  CHECK(GENDER = '남);
+CHECK(GENDER = '남)
+               *
+3행에 오류:
+ORA-01756: 단일 인용부를 지정해 주십시오 
+
+
+SQL> --실습 '남' 이 아닌 다른데이터를 넣을때 과 연 제약조건이 동작하는가?
+SQL> SELECT * FROM MEMBER;
+
+MEMBER_IDX NAME                                            AGE REGDATE       POINT                                                                                                                      
+---------- ---------------------------------------- ---------- -------- ----------                                                                                                                      
+         1 BATMAN                                           37 20/09/11        500                                                                                                                      
+
+SQL> ALTER TABLE MEMBER
+  2  ADD GENDER VARCHAR(4)
+  3  CHECK(GENDER = '남');
+
+테이블이 변경되었습니다.
+
+SQL> INSERT INTO MEMBER(MEMBER_IDX, NAME, AGE, GENDER) VALUES(10, 'SPIDER', 24, '여');
+INSERT INTO MEMBER(MEMBER_IDX, NAME, AGE, GENDER) VALUES(10, 'SPIDER', 24, '여')
+*
+1행에 오류:
+ORA-02290: 체크 제약조건(USER0907.SYS_C0011060)이 위배되었습니다 
+
+
+SQL> ㄴ딛ㅊㅅ * ㄹ개ㅡ 드ㅠㄷㄱ;
+SP2-0734: "ㄴ딛ㅊㅅ *..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> SELECT * FROM MEMBER;
+
+MEMBER_IDX NAME                                            AGE REGDATE       POINT GENDER                                                                                                               
+---------- ---------------------------------------- ---------- -------- ---------- --------                                                                                                             
+         1 BATMAN                                           37 20/09/11        500                                                                                                                      
+
+SQL> INSERT INTO MEMBER(MEMBER_IDX, NAME, AGE, GENDER) VALUES(10, 'SPIDER', 24, '남');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> SELECT * FROM MEMBER;
+
+MEMBER_IDX NAME                                            AGE REGDATE       POINT GENDER                                                                                                               
+---------- ---------------------------------------- ---------- -------- ---------- --------                                                                                                             
+         1 BATMAN                                           37 20/09/11        500                                                                                                                      
+        10 SPIDER                                           24 20/09/11        500 남                                                                                                                   
+
+SQL> SPOOL OFF
