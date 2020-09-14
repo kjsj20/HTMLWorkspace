@@ -1,0 +1,17 @@
+1: 제약조건 (컬럼정의시 제약,제한사항을 두는것)
+2. 목적: 결점이 없는 데이터만 받아들이기 위해 (무결성 데이터를 위함)
+3. 종류 
+	Unique : 중복을 허용하지 않는 제약조건 (단 null이 허용되버린다)
+	Not null : Null을 허용하지 않는 제약조건
+	Primary key : Unique + Not null
+	Default : 기본값 ex) regdate date default sysdate 
+			 point number default 10000
+	Check : 법위를 제한
+	Foreign key(외래키)
+
+[정규화]
+- 중복된 데이터는 분리시키자는 설계 원칙
+- 정규화 시키고 난 후, 물리적으로 분리된 테이블을 어떻게 하면 합쳐서 보여줘야 하나?
+
+[조인문 = join]
+	- 물리적으로 분리된 테이블을 마치 하나의 테이블로 보여줄 수 있는것.
