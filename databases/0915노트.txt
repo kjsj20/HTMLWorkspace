@@ -1,0 +1,131 @@
+SQL> set line 200
+SQL> set pagesize 20
+SQL> --수업주제 : 외래키 (foreign key)
+SQL> --상품 범주 테이블 생성
+SQL> create table category(
+  2  category_id number primary key
+  3  , name varchar(20)
+  4  );
+
+테이블이 생성되었습니다.
+
+SQL> select * from category
+  2  ;
+
+선택된 레코드가 없습니다.
+
+SQL> --구조 보기
+SQL> desc category;
+ 이름                                                                                                              널?      유형
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ CATEGORY_ID                                                                                                       NOT NULL NUMBER
+ NAME                                                                                                                       VARCHAR2(20)
+
+SQL> insert into category(category_id, name) values(1,'상의');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into category(category_id, name) values(2,'하의');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into category(category_id, name) values(3,'액세서리');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into category(category_id, name) values(4,'신발');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> commit
+  2  ;
+
+커밋이 완료되었습니다.
+
+SQL> --방금 만든 카테고리 테이블을 참조하는 자식 테이블을 생성한다.
+SQL> create table product(
+  2  product_id number primary key,
+  3  category_id number FOREIGN KEY REFERENCES CATEGORY(CATEGORY_ID),
+  4  CODE VARCHAR(20),
+  5  PRODUCT_NAME VARCHAR(20),
+  6  PRICE NUMBER DEFAULT 0
+  7  );
+category_id number FOREIGN KEY REFERENCES CATEGORY(CATEGORY_ID),
+                   *
+3행에 오류:
+ORA-00907: 누락된 우괄호 
+
+
+SQL> ED
+file afiedt.buf(이)가 기록되었습니다
+
+  1  create table product(
+  2  product_id number primary key,
+  3  category_id number,
+  4  FOREIGN KEY(CATEGORY_ID) REFERENCES CATEGORY(CATEGORY_ID) ,
+  5  CODE VARCHAR(20),
+  6  PRODUCT_NAME VARCHAR(20),
+  7  PRICE NUMBER DEFAULT 0
+  8* )
+SQL> ;
+  1  create table product(
+  2  product_id number primary key,
+  3  category_id number,
+  4  FOREIGN KEY(CATEGORY_ID) REFERENCES CATEGORY(CATEGORY_ID) ,
+  5  CODE VARCHAR(20),
+  6  PRODUCT_NAME VARCHAR(20),
+  7  PRICE NUMBER DEFAULT 0
+  8* )
+SQL> ;
+  1  create table product(
+  2  product_id number primary key,
+  3  category_id number,
+  4  FOREIGN KEY(CATEGORY_ID) REFERENCES CATEGORY(CATEGORY_ID) ,
+  5  CODE VARCHAR(20),
+  6  PRODUCT_NAME VARCHAR(20),
+  7  PRICE NUMBER DEFAULT 0
+  8* )
+SQL> ED
+file afiedt.buf(이)가 기록되었습니다
+
+  1  create table product(
+  2  product_id number primary key,
+  3  category_id number,
+  4  FOREIGN KEY(CATEGORY_ID) REFERENCES CATEGORY(CATEGORY_ID) ,
+  5  CODE VARCHAR(20),
+  6  PRODUCT_NAME VARCHAR(20),
+  7  PRICE NUMBER DEFAULT 0
+  8* );
+SQL> SELECT * FROM PRODUCT;
+SELECT * FROM PRODUCT
+              *
+1행에 오류:
+ORA-00942: 테이블 또는 뷰가 존재하지 않습니다 
+
+
+SQL> CREATE TABLE PRODUCT(
+  2  PRODUCT_ID NUMBER PRIMARY KEY,
+  3  CATEGORY_ID NUMBER,
+  4  FOREIGN KEY(CATEGORY_ID) REFERENCES CATEGORY(CATEGORY_ID),
+  5  CODE VARCHAR(20),
+  6  PRODUCT_NAME VARCHAR(20),
+  7  PRICE NUMBER DEFAULT0
+  8  );
+PRICE NUMBER DEFAULT0
+             *
+7행에 오류:
+ORA-00907: 누락된 우괄호 
+
+
+SQL> CREATE TABLE PRODUCT(
+  2  PRODUCT_ID NUMBER PRIMARY KEY,
+  3  CATEGORY_ID NUMBER,
+  4  FOREIGN KEY(CATEGORY_ID) REFERENCES CATEGORY(CATEGORY_ID),
+  5  CODE VARCHAR(20),
+  6  PRODUCT_NAME VARCHAR(20),
+  7  PRICE NUMBER DEFAULT 0
+  8  );
+
+테이블이 생성되었습니다.
+
+SQL> 
