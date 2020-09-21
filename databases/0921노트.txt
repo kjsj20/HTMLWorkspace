@@ -1,0 +1,231 @@
+SQL> set line 200
+SQL> set pagesize 100
+SQL> select to_char(hiredate, 'YYYY-MM-DD') FROM EMP;
+
+TO_CHAR(HIREDATE,'YY                                                                                                                                                                                    
+--------------------                                                                                                                                                                                    
+1980-12-17                                                                                                                                                                                              
+1981-02-20                                                                                                                                                                                              
+1981-02-22                                                                                                                                                                                              
+1981-04-02                                                                                                                                                                                              
+1981-09-28                                                                                                                                                                                              
+1981-05-01                                                                                                                                                                                              
+1981-06-09                                                                                                                                                                                              
+1987-04-19                                                                                                                                                                                              
+1981-11-17                                                                                                                                                                                              
+1981-09-08                                                                                                                                                                                              
+1987-05-23                                                                                                                                                                                              
+1981-12-03                                                                                                                                                                                              
+1981-12-03                                                                                                                                                                                              
+1982-01-23                                                                                                                                                                                              
+
+14 개의 행이 선택되었습니다.
+
+SQL> select to_char(hiredate, 'YYYY-MM-DD'), HIREDATE FROM EMP;
+
+TO_CHAR(HIREDATE,'YY HIREDATE                                                                                                                                                                           
+-------------------- --------                                                                                                                                                                           
+1980-12-17           80/12/17                                                                                                                                                                           
+1981-02-20           81/02/20                                                                                                                                                                           
+1981-02-22           81/02/22                                                                                                                                                                           
+1981-04-02           81/04/02                                                                                                                                                                           
+1981-09-28           81/09/28                                                                                                                                                                           
+1981-05-01           81/05/01                                                                                                                                                                           
+1981-06-09           81/06/09                                                                                                                                                                           
+1987-04-19           87/04/19                                                                                                                                                                           
+1981-11-17           81/11/17                                                                                                                                                                           
+1981-09-08           81/09/08                                                                                                                                                                           
+1987-05-23           87/05/23                                                                                                                                                                           
+1981-12-03           81/12/03                                                                                                                                                                           
+1981-12-03           81/12/03                                                                                                                                                                           
+1982-01-23           82/01/23                                                                                                                                                                           
+
+14 개의 행이 선택되었습니다.
+
+SQL> SELECT ENAME, HIREDATE FROM EMP
+  2  WHERE TO_CHAR(HIREDATE, 'YYYY') = '1980';
+
+ENAME                HIREDATE                                                                                                                                                                           
+-------------------- --------                                                                                                                                                                           
+SMITH                80/12/17                                                                                                                                                                           
+
+SQL> SELECT ENAME, HIREDATE FROM EMP
+  2  WHERE TO_cHAR(HIREDATE, 'MM') = '05';
+
+ENAME                HIREDATE                                                                                                                                                                           
+-------------------- --------                                                                                                                                                                           
+BLAKE                81/05/01                                                                                                                                                                           
+ADAMS                87/05/23                                                                                                                                                                           
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                 
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                 
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                 
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                 
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                 
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                 
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                 
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                 
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                 
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                 
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                 
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                 
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                 
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                 
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                 
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                 
+
+14 개의 행이 선택되었습니다.
+
+SQL> SELECT EMPNO FROM EMP
+  2  ;
+
+     EMPNO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      7369                                                                                                                                                                                              
+      7499                                                                                                                                                                                              
+      7521                                                                                                                                                                                              
+      7566                                                                                                                                                                                              
+      7654                                                                                                                                                                                              
+      7698                                                                                                                                                                                              
+      7782                                                                                                                                                                                              
+      7788                                                                                                                                                                                              
+      7839                                                                                                                                                                                              
+      7844                                                                                                                                                                                              
+      7876                                                                                                                                                                                              
+      7900                                                                                                                                                                                              
+      7902                                                                                                                                                                                              
+      7934                                                                                                                                                                                              
+
+14 개의 행이 선택되었습니다.
+
+SQL> SELECT EMPNO FROM EMP
+  2  WHERE MOD(EMOPNO, 2) != '0';
+WHERE MOD(EMOPNO, 2) != '0'
+          *
+2행에 오류:
+ORA-00904: "EMOPNO": 부적합한 식별자 
+
+
+SQL> WHERE MOD(EMOPNO, 2) != 0;
+SP2-0734: "WHERE MOD(..."(으)로 시작되는 알 수 없는 명령 - 나머지 줄은 무시되었습니다.
+SQL> SELECT EMPNO FROM EMP
+  2  WHERE MOD(EMOPNO, 2) != 0;
+WHERE MOD(EMOPNO, 2) != 0
+          *
+2행에 오류:
+ORA-00904: "EMOPNO": 부적합한 식별자 
+
+
+SQL> SELECT EMPNO FROM EMP
+  2  WHERE MOD(EMPNO, 2) != 0;
+
+     EMPNO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      7369                                                                                                                                                                                              
+      7499                                                                                                                                                                                              
+      7521                                                                                                                                                                                              
+      7839                                                                                                                                                                                              
+
+SQL> SELECT EMPNO FROM EMP
+  2  WHERE MOD(EMPNO, 2) != 0;
+
+     EMPNO                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      7369                                                                                                                                                                                              
+      7499                                                                                                                                                                                              
+      7521                                                                                                                                                                                              
+      7839                                                                                                                                                                                              
+
+SQL> SELECT LENGTH(ENAME) FROM EMP;
+
+LENGTH(ENAME)                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+            5                                                                                                                                                                                           
+            5                                                                                                                                                                                           
+            4                                                                                                                                                                                           
+            5                                                                                                                                                                                           
+            6                                                                                                                                                                                           
+            5                                                                                                                                                                                           
+            5                                                                                                                                                                                           
+            5                                                                                                                                                                                           
+            4                                                                                                                                                                                           
+            6                                                                                                                                                                                           
+            5                                                                                                                                                                                           
+            5                                                                                                                                                                                           
+            4                                                                                                                                                                                           
+            6                                                                                                                                                                                           
+
+14 개의 행이 선택되었습니다.
+
+SQL> SELECT CONCAT(CONCAT(JOB, '업무담당:'),ENAME) EMP;
+SELECT CONCAT(CONCAT(JOB, '업무담당:'),ENAME) EMP
+                                                *
+1행에 오류:
+ORA-00923: FROM 키워드가 필요한 위치에 없습니다. 
+
+
+SQL> SELECT CONCAT(CONCAT(JOB, '업무담당:'),ENAME) FROM EMP;
+
+CONCAT(CONCAT(JOB,'업무담당:'),ENAME)                                                                                                                                                                   
+----------------------------------------------------------------                                                                                                                                        
+CLERK업무담당:SMITH                                                                                                                                                                                     
+SALESMAN업무담당:ALLEN                                                                                                                                                                                  
+SALESMAN업무담당:WARD                                                                                                                                                                                   
+MANAGER업무담당:JONES                                                                                                                                                                                   
+SALESMAN업무담당:MARTIN                                                                                                                                                                                 
+MANAGER업무담당:BLAKE                                                                                                                                                                                   
+MANAGER업무담당:CLARK                                                                                                                                                                                   
+ANALYST업무담당:SCOTT                                                                                                                                                                                   
+PRESIDENT업무담당:KING                                                                                                                                                                                  
+SALESMAN업무담당:TURNER                                                                                                                                                                                 
+CLERK업무담당:ADAMS                                                                                                                                                                                     
+CLERK업무담당:JAMES                                                                                                                                                                                     
+ANALYST업무담당:FORD                                                                                                                                                                                    
+CLERK업무담당:MILLER                                                                                                                                                                                    
+
+14 개의 행이 선택되었습니다.
+
+SQL> SELECT SYSDATE FROM DUAL;
+
+SYSDATE                                                                                                                                                                                                 
+--------                                                                                                                                                                                                
+20/09/21                                                                                                                                                                                                
+
+SQL> SELECT ENAME, HIREDATE FROM EMP
+  2  WHERE TO_CHAR(HIREDATE, 'MM') = TO_CHAR(SYSDATE, 'MM');
+
+ENAME                HIREDATE                                                                                                                                                                           
+-------------------- --------                                                                                                                                                                           
+MARTIN               81/09/28                                                                                                                                                                           
+TURNER               81/09/08                                                                                                                                                                           
+
+SQL> --ADD_MONTHS(대상날짜,더할월)
+SQL> SELECT ADD_MONTHS(SYSDATE,1) FROM DUAL;
+
+ADD_MONT                                                                                                                                                                                                
+--------                                                                                                                                                                                                
+20/10/21                                                                                                                                                                                                
+
+SQL> SELECT ADD_YEARS(SYSDATE,1) FROM DUAL;
+SELECT ADD_YEARS(SYSDATE,1) FROM DUAL
+       *
+1행에 오류:
+ORA-00904: "ADD_YEARS": 부적합한 식별자 
+
+
+SQL> SELECT ADD_YEAR(SYSDATE,1) FROM DUAL;
+SELECT ADD_YEAR(SYSDATE,1) FROM DUAL
+       *
+1행에 오류:
+ORA-00904: "ADD_YEAR": 부적합한 식별자 
+
+
+SQL> SELECT ADD_MONTHS(SYSDATE,1) FROM DUAL;
+
+ADD_MONT                                                                                                                                                                                                
+--------                                                                                                                                                                                                
+20/10/21                                                                                                                                                                                                
+
+SQL> SPOOL OFF
